@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H.C. Artmann — Biographie</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: #0a0a0f;
+    color: #e8e4df;
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  .slideshow {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* --- Title Slide --- */
+  .slide-title {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, #1a1520 0%, #0d0b14 50%, #12101a 100%);
+  }
+
+  .slide-title h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.3em;
+    background: linear-gradient(to right, #c9b99a, #f0e6d3, #c9b99a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .slide-title .subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    font-weight: 300;
+    color: #8a8078;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .slide-title .dates {
+    margin-top: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    color: #6a6260;
+  }
+
+  .slide-title .quote {
+    margin-top: 3rem;
+    max-width: 600px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+    color: #7a7068;
+    line-height: 1.7;
+    padding: 0 2rem;
+  }
+
+  /* --- Content Slides --- */
+  .slide-content {
+    flex-direction: row;
+    background: #0e0c14;
+  }
+
+  .slide-left {
+    flex: 0 0 38%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide-left::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 10%;
+    height: 80%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, #3a3530 50%, transparent);
+  }
+
+  .slide-number {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(5rem, 10vw, 9rem);
+    font-weight: 700;
+    color: #1a1720;
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+    line-height: 1;
+    z-index: 0;
+  }
+
+  .slide-year {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    background: linear-gradient(to bottom, #c9b99a, #8a7a6a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    z-index: 1;
+  }
+
+  .slide-era {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #6a6058;
+    margin-top: 0.8rem;
+    z-index: 1;
+  }
+
+  /* --- Slide images --- */
+  .slide-left.has-image {
+    justify-content: flex-end;
+    padding-bottom: 2rem;
+  }
+
+  .slide-image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .slide-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+    filter: contrast(1.1);
+  }
+
+  .slide-left.has-image .slide-number {
+    color: rgba(255,255,255,0.08);
+  }
+
+  .slide-left.has-image .slide-year {
+    background: linear-gradient(to bottom, #c9b99a, #8a7a6a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.9));
+  }
+
+  .slide-left.has-image .slide-era {
+    color: #fff;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.7);
+  }
+
+  .slide-left.has-image .slide-number {
+    display: none;
+  }
+
+  .slide-left.has-image::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(14,12,20,0.95), transparent);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .slide-left.has-image .slide-year,
+  .slide-left.has-image .slide-era {
+    z-index: 2;
+  }
+
+  /* Title slide portrait */
+  .title-portrait {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #3a3530;
+    margin-bottom: 2rem;
+    opacity: 1;
+    filter: contrast(1.1);
+  }
+
+  .slide-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 5rem;
+  }
+
+  .slide-right h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    font-weight: 700;
+    color: #e8e0d4;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .slide-right p {
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    line-height: 1.85;
+    color: #a09890;
+    margin-bottom: 1.2rem;
+    max-width: 640px;
+  }
+
+  .slide-right .highlight {
+    border-left: 3px solid #c9b99a;
+    padding-left: 1.2rem;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #c0b8a8;
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    line-height: 1.7;
+  }
+
+  .slide-right ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .slide-right ul li {
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    line-height: 1.85;
+    color: #a09890;
+    padding-left: 1.2rem;
+    position: relative;
+    margin-bottom: 0.5rem;
+  }
+
+  .slide-right ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: #c9b99a;
+  }
+
+  /* --- Audio Slide --- */
+  .slide-audio {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #12101a 0%, #0a0a0f 100%);
+    text-align: center;
+  }
+
+  .slide-audio h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    color: #e8e0d4;
+    margin-bottom: 0.5rem;
+  }
+
+  .slide-audio .audio-subtitle {
+    font-size: 1rem;
+    color: #6a6260;
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+
+  .slide-audio iframe {
+    border: 1px solid #2a2530;
+    border-radius: 8px;
+    background: #111;
+  }
+
+  .slide-audio .audio-note {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: #5a5550;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+
+  .slide-audio .audio-note a {
+    color: #c9b99a;
+    text-decoration: none;
+  }
+
+  .slide-audio .audio-note a:hover {
+    text-decoration: underline;
+  }
+
+  /* --- Navigation --- */
+  .nav {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 100;
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    border: 1px solid #2a2530;
+  }
+
+  .nav button {
+    background: none;
+    border: none;
+    color: #8a8078;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 0.3rem 0.6rem;
+    transition: color 0.3s;
+    line-height: 1;
+  }
+
+  .nav button:hover { color: #e8e0d4; }
+
+  .dots {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2a2530;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .dot.active {
+    background: #c9b99a;
+    box-shadow: 0 0 8px rgba(201, 185, 154, 0.4);
+  }
+
+  .dot:hover { background: #5a5550; }
+
+  .slide-counter {
+    font-size: 0.75rem;
+    color: #5a5550;
+    font-variant-numeric: tabular-nums;
+    min-width: 3em;
+    text-align: center;
+  }
+
+  /* keyboard hint */
+  .kb-hint {
+    position: fixed;
+    top: 1.5rem;
+    right: 2rem;
+    font-size: 0.7rem;
+    color: #3a3530;
+    letter-spacing: 0.1em;
+    z-index: 100;
+  }
+
+  .kb-hint kbd {
+    background: #1a1720;
+    padding: 0.15em 0.5em;
+    border-radius: 3px;
+    border: 1px solid #2a2530;
+    font-family: inherit;
+  }
+
+  /* responsive */
+  @media (max-width: 768px) {
+    .slide-content { flex-direction: column; }
+    .slide-left { flex: 0 0 auto; padding: 2rem; }
+    .slide-left::after { display: none; }
+    .slide-right { padding: 2rem; }
+    .slide-number { font-size: 4rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="slideshow" id="slideshow">
+
+  <!-- Slide 0: Title -->
+  <div class="slide slide-title active" data-index="0">
+    <img class="title-portrait" src=".claude/assets/972048_opener_341579_hc_artmann_100_jahre_19970101_pd3399_p.jpg" alt="H.C. Artmann Portrait">
+    <h1>H. C. Artmann</h1>
+    <div class="subtitle">Dichter &middot; Übersetzer &middot; Sprachkünstler</div>
+    <div class="dates">12. Juni 1921, Wien &mdash; 4. Dezember 2000, Wien</div>
+    <div class="quote">
+      &bdquo;ich trage keine socken beim dichten,<br>
+      denn dichten ist ein barfüßiger vorgang.&ldquo;
+    </div>
+  </div>
+
+  <!-- Slide 1: Kindheit & Jugend -->
+  <div class="slide slide-content" data-index="1">
+    <div class="slide-left">
+      <div class="slide-number">01</div>
+      <div class="slide-year">1921</div>
+      <div class="slide-era">Wien-Breitensee</div>
+    </div>
+    <div class="slide-right">
+      <h2>Kindheit & Jugend</h2>
+      <p>
+        Hans Carl Artmann wird am 12. Juni 1921 in Wien-Breitensee, Kienmayergasse 43,
+        als Sohn des Schuhmachers Johann Artmann und seiner Frau Marie (geb. Schneider) geboren.
+      </p>
+      <p>
+        Er wächst in einem Handwerkerviertel auf, in dem er früh mit Fremdsprachen
+        in Berührung kommt — besonders mit dem Tschechischen der Nachbarn.
+        Nach dem Hauptschulabschluss arbeitet er als Büropraktikant.
+      </p>
+      <div class="highlight">
+        Schon als Kind entwickelt er eine Faszination für Sprache und Dialekt,
+        die sein gesamtes Schaffen prägen wird.
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 2: Krieg -->
+  <div class="slide slide-content" data-index="2">
+    <div class="slide-left">
+      <div class="slide-number">02</div>
+      <div class="slide-year">1940–45</div>
+      <div class="slide-era">Krieg & Gefangenschaft</div>
+    </div>
+    <div class="slide-right">
+      <h2>Krieg & Verwundung</h2>
+      <p>
+        1940 wird Artmann zur Deutschen Wehrmacht eingezogen. 1941 erleidet er
+        eine schwere Kriegsverletzung an der Ostfront und wird in ein Strafbataillon versetzt.
+      </p>
+      <p>
+        1945 gerät er in amerikanische Kriegsgefangenschaft. Schon während
+        der Militärzeit widmet er sich dem Schreiben — eine Flucht in die Sprache
+        aus der Brutalität des Krieges.
+      </p>
+      <p>
+        Nach Kriegsende arbeitet er als Übersetzer für die alliierten Truppen —
+        ein Zeichen seiner außergewöhnlichen Sprachbegabung.
+      </p>
+    </div>
+  </div>
+
+  <!-- Slide 3: Literarische Anfänge -->
+  <div class="slide slide-content" data-index="3">
+    <div class="slide-left">
+      <div class="slide-number">03</div>
+      <div class="slide-year">1947–52</div>
+      <div class="slide-era">Erste Veröffentlichungen</div>
+    </div>
+    <div class="slide-right">
+      <h2>Literarische Anfänge</h2>
+      <p>
+        1947 erscheint seine erste Lyrikveröffentlichung im Radio Wien.
+        Er entdeckt den Dadaismus, japanische Haiku-Dichtung und mittelalterliche
+        Balladen als Inspirationsquellen.
+      </p>
+      <p>
+        1951 tritt er dem Art-Club bei, der wichtigsten Künstlervereinigung
+        im Nachkriegs-Wien. Ab 1952 arbeitet er eng mit Gerhard Rühm und
+        Konrad Bayer zusammen.
+      </p>
+      <div class="highlight">
+        Eine experimentelle Stimme formt sich — zwischen Tradition und Avantgarde,
+        zwischen Dialekt und Weltliteratur.
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4: Wiener Gruppe -->
+  <div class="slide slide-content" data-index="4">
+    <div class="slide-left has-image">
+      <div class="slide-image"><img src=".claude/assets/194190771_4688203427860983_9064458772481845725_n.jpg" alt="H.C. Artmann jung"></div>
+      <div class="slide-number">04</div>
+      <div class="slide-year">1953–58</div>
+      <div class="slide-era">Die Wiener Gruppe</div>
+    </div>
+    <div class="slide-right">
+      <h2>Die Wiener Gruppe</h2>
+      <p>
+        Um 1953 gründet Artmann die legendäre <strong>Wiener Gruppe</strong> —
+        eine Avantgarde-Bewegung, die die deutschsprachige Literatur revolutioniert.
+        Mitglieder: Friedrich Achleitner, Konrad Bayer, Gerhard Rühm und Oswald Wiener.
+      </p>
+      <p>
+        Die Gruppe experimentiert radikal mit Sprache, Form und Performance.
+        Artmann verlässt die Gruppe 1958, im selben Jahr seines größten Erfolges.
+      </p>
+      <div class="highlight">
+        Die Wiener Gruppe gilt heute als eine der bedeutendsten
+        literarischen Avantgarde-Bewegungen der Nachkriegszeit.
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5: med ana schwoazzn dintn -->
+  <div class="slide slide-content" data-index="5">
+    <div class="slide-left has-image">
+      <div class="slide-image"><img src=".claude/assets/81Psr6lOsHL._SL1135_.jpg" alt="med ana schwoazzn dintn Buchcover"></div>
+      <div class="slide-number">05</div>
+      <div class="slide-year">1958</div>
+      <div class="slide-era">Der Durchbruch</div>
+    </div>
+    <div class="slide-right">
+      <h2>med ana schwoazzn dintn</h2>
+      <p>
+        1958 erscheint <em>med ana schwoazzn dintn. gedichta r aus bradnsee</em>
+        (mit einer schwarzen Tinte) — Artmanns berühmtestes Werk.
+        Eine Sammlung von Gedichten im Wiener Dialekt, die eine ganze
+        <strong>Dialektwelle</strong> in der deutschsprachigen Literatur auslöst.
+      </p>
+      <p>
+        Die Gedichte verbinden schwarzen Humor mit makabren Szenen aus dem
+        Wiener Vorstadtleben. Was als satirische Provokation gedacht war,
+        wird von den Lesern begeistert aufgenommen.
+      </p>
+      <div class="highlight">
+        &bdquo;r schdesd an schwooazzn kpp aufd nosn / und kummd da menschhaid
+        oblgosn...&ldquo;
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 6: Europäische Wanderjahre -->
+  <div class="slide slide-content" data-index="6">
+    <div class="slide-left has-image">
+      <div class="slide-image"><img src=".claude/assets/194190771_4688203427860983_9064458772481845725_n.jpg" alt="H.C. Artmann" style="object-position: top right;"></div>
+      <div class="slide-number">06</div>
+      <div class="slide-year">1960–72</div>
+      <div class="slide-era">Wanderjahre</div>
+    </div>
+    <div class="slide-right">
+      <h2>Europäische Wanderjahre</h2>
+      <p>
+        Schon ab 1954 bereist Artmann Frankreich, Spanien und <strong>Irland</strong>.
+        Die grüne Insel wird zur lebenslangen Faszination — er beschreibt
+        sein Irland als &bdquo;ein Feenland, regenbogenartig, magisch&ldquo;.
+        Keltische Mythen und Dichtung fließen in sein Werk ein,
+        später übersetzt er keltische Klosterdichtung in <em>Schlüssel zum Paradies</em> (1993).
+      </p>
+      <p>
+        Ab 1960 verlässt er Wien dauerhaft. Er lebt in Schweden (1961–65),
+        Berlin (1965–69) und lässt sich 1972 in Salzburg nieder.
+        Es entstehen Übersetzungen von Villon, Molière und Lope de Vega.
+      </p>
+      <ul>
+        <li><em>dracula dracula</em> (1966) — Parodie auf den Vampirmythos</li>
+        <li><em>Frankenstein in Sussex</em> (1969) — Groteske Prosa</li>
+        <li>Theatralische Lesungen in ganz Europa</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Slide 7: Fernsehen & Film -->
+  <div class="slide slide-content" data-index="7">
+    <div class="slide-left">
+      <div class="slide-number">07</div>
+      <div class="slide-year">1960–69</div>
+      <div class="slide-era">Fernsehen & Film</div>
+    </div>
+    <div class="slide-right">
+      <h2>Fernsehproduktionen</h2>
+      <p>
+        Artmann schrieb auch für Film und Fernsehen — mit unverkennbarer
+        Handschrift zwischen Wiener Volkstheater und Avantgarde.
+      </p>
+      <ul>
+        <li><strong><em>Das Donauweibchen</em></strong> (1960) — Regie: Wolfgang Glück, Musik: Paul Angerer.
+          Ein &bdquo;Wiener Fernsehdramolett&ldquo;, gemeinsam mit Gerhard Rühm verfasst.
+          Die Sage des Donauweibchens wird als Rockerballade im Wiener Untergrund
+          der späten 1950er erzählt. 43 Min., Schwarzweiß.</li>
+        <li><strong><em>Die Moritat vom Räuberhauptmann Johann Georg Grasel</em></strong> (1969) —
+          Regie: Otto A. Eder, Drehbuch: Artmann &amp; Friedrich Polakovics.
+          Eine ORF-Produktion über den legendären niederösterreichischen
+          Räuberhauptmann Grasel, im typisch Artmann'schen Moritatenstil.</li>
+      </ul>
+      <div class="highlight">
+        Artmanns Fernseharbeiten verbinden Volksmythos mit experimenteller Form —
+        das Donauweibchen als Rockerin, der Räuber als Bänkelsänger-Held.
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 8: Werk & Vielfalt -->
+  <div class="slide slide-content" data-index="8">
+    <div class="slide-left">
+      <div class="slide-number">08</div>
+      <div class="slide-year">1958–00</div>
+      <div class="slide-era">Gesamtwerk</div>
+    </div>
+    <div class="slide-right">
+      <h2>Werk & sprachliche Vielfalt</h2>
+      <p>
+        Artmanns Werk umfasst Lyrik, Prosa, Theaterstücke, Übersetzungen
+        und Hörspiele. Er beherrschte zahlreiche Sprachen und übersetzte
+        aus dem Schwedischen, Spanischen, Englischen, Französischen und Dänischen.
+      </p>
+      <ul>
+        <li><em>med ana schwoazzn dintn</em> (1958) — Wiener Dialektgedichte</li>
+        <li><em>Von denen Husaren und anderen Seil-Tänzern</em> (1959)</li>
+        <li><em>Das suchen nach dem gestrigen tag</em> (1964)</li>
+        <li><em>dracula dracula</em> (1966)</li>
+        <li><em>Frankenstein in Sussex</em> (1969)</li>
+        <li><em>The Best of H. C. Artmann</em> (1970)</li>
+        <li><em>Gedichte über die Liebe und über die Lasterhaftigkeit</em> (1975)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Slide 9: Auszeichnungen -->
+  <div class="slide slide-content" data-index="9">
+    <div class="slide-left has-image">
+      <div class="slide-image"><img src=".claude/assets/a587a4a79a76f362085b73e5d5e823ee0e4012aa.jpg" alt="H.C. Artmann nachdenklich"></div>
+      <div class="slide-number">09</div>
+      <div class="slide-year">1974–97</div>
+      <div class="slide-era">Ehrungen</div>
+    </div>
+    <div class="slide-right">
+      <h2>Auszeichnungen</h2>
+      <p>Artmanns Lebenswerk wurde mit den höchsten literarischen Ehrungen gewürdigt:</p>
+      <ul>
+        <li><strong>Großer Österreichischer Staatspreis</strong> für Literatur (1974)</li>
+        <li>Literaturpreis der Stadt Wien (1977)</li>
+        <li>Ehrendoktorat der Universität Salzburg (1991)</li>
+        <li><strong>Georg-Büchner-Preis</strong> — die höchste literarische Auszeichnung im deutschsprachigen Raum (1997)</li>
+        <li>Ehrenpreis des österreichischen Buchhandels für Toleranz in Denken und Handeln (1997)</li>
+      </ul>
+      <div class="highlight">
+        Der Büchner-Preis 1997 krönte ein Lebenswerk,
+        das die Grenzen der Sprache immer wieder neu definierte.
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 10: Letzte Jahre -->
+  <div class="slide slide-content" data-index="10">
+    <div class="slide-left has-image">
+      <div class="slide-image"><img src=".claude/assets/972048_opener_341579_hc_artmann_100_jahre_19970101_pd3399_p.jpg" alt="H.C. Artmann spätes Portrait"></div>
+      <div class="slide-number">10</div>
+      <div class="slide-year">1995–00</div>
+      <div class="slide-era">Rückkehr nach Wien</div>
+    </div>
+    <div class="slide-right">
+      <h2>Rückkehr & Vermächtnis</h2>
+      <p>
+        1995 kehrt Artmann nach Wien zurück und nimmt eine Lehrtätigkeit
+        an der Wiener Schule für Dichtung an.
+        Er schreibt und dichtet bis ins hohe Alter weiter.
+      </p>
+      <p>
+        Am 4. Dezember 2000 stirbt Hans Carl Artmann in Wien an einem Herzinfarkt.
+        Er wird am Wiener Zentralfriedhof beigesetzt.
+      </p>
+      <div class="highlight">
+        H. C. Artmann hinterlässt ein Werk von unvergleichlicher Vielfalt —
+        ein Kosmos aus Dialekt und Hochsprache, Humor und Abgrund,
+        Tradition und radikaler Erneuerung.
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 10: Audio / Lyrikline -->
+  <div class="slide slide-audio" data-index="11">
+    <h2>Artmann liest Artmann</h2>
+    <div class="audio-subtitle">Aufnahme via lyrikline.org &middot; Österreichischer Rundfunk, 1996</div>
+    <iframe
+      src="https://www.lyrikline.org/en/poems/blauboad-1-39"
+      width="900"
+      height="500"
+      allow="autoplay"
+      loading="lazy"
+    ></iframe>
+    <div class="audio-note">
+      Weitere Gedichte und Aufnahmen auf
+      <a href="https://www.lyrikline.org/en/authors/h-c-artmann" target="_blank">lyrikline.org/h-c-artmann</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button id="prevBtn" aria-label="Vorherige Folie">&#8592;</button>
+  <div class="dots" id="dots"></div>
+  <button id="nextBtn" aria-label="Nächste Folie">&#8594;</button>
+  <div class="slide-counter" id="counter"></div>
+</div>
+
+<div class="kb-hint">
+  <kbd>&larr;</kbd> <kbd>&rarr;</kbd> zum Navigieren
+</div>
+
+<script>
+(function () {
+  const slides = document.querySelectorAll('.slide');
+  const dotsContainer = document.getElementById('dots');
+  const counter = document.getElementById('counter');
+  let current = 0;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  function goTo(index) {
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+    slides[current].classList.remove('active');
+    dotsContainer.children[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+    dotsContainer.children[current].classList.add('active');
+    counter.textContent = (current + 1) + ' / ' + slides.length;
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+    if (e.key === 'Home') goTo(0);
+    if (e.key === 'End') goTo(slides.length - 1);
+  });
+
+  // Touch support
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+  document.addEventListener('touchend', (e) => {
+    const diff = touchStartX - e.changedTouches[0].screenX;
+    if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
+  });
+
+  // Init counter
+  counter.textContent = '1 / ' + slides.length;
+})();
+</script>
+
+</body>
+</html>
