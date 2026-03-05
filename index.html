@@ -638,12 +638,15 @@
   <div class="slide slide-content" data-index="7">
     <div class="slide-left has-video">
       <div class="slide-number">07</div>
-      <div class="video-container" id="ytVideo">
-        <a class="video-link" href="https://www.youtube.com/watch?v=MAgUzlyz21M" target="_blank">
-          <img src="assets/yt-thumb-MAgUzlyz21M.jpg" alt="H.C. Artmann Fernsehproduktion">
-          <div class="play-btn">&#9654;</div>
-        </a>
-      </div>
+      <iframe
+        class="slide-video"
+        src="https://www.youtube.com/embed/MAgUzlyz21M"
+        title="H.C. Artmann Fernsehproduktion"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
     </div>
     <div class="slide-right">
       <h2>Fernsehproduktionen</h2>
@@ -820,14 +823,6 @@
     const diff = touchStartX - e.changedTouches[0].screenX;
     if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
   });
-
-  // Replace thumbnail with YouTube embed when served over HTTP(S)
-  if (location.protocol !== 'file:') {
-    const vc = document.getElementById('ytVideo');
-    if (vc) {
-      vc.innerHTML = '<iframe class="slide-video" src="https://www.youtube.com/embed/MAgUzlyz21M" title="H.C. Artmann Fernsehproduktion" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-    }
-  }
 
   // Init counter
   counter.textContent = '1 / ' + slides.length;
