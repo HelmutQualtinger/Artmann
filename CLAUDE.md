@@ -18,7 +18,7 @@ No build step, no server required.
 ## Structure
 
 - `hc-artmann-slideshow.html` — Complete slideshow (all styles, scripts, and content inline)
-- `.claude/assets/` — JPG images referenced by the slideshow (portraits, book covers)
+- `assets/` — JPG images referenced by the slideshow (portraits, book covers)
 
 ## Architecture
 
