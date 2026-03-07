@@ -485,12 +485,92 @@
   }
 
   /* responsive */
+  /* Mobile Optimization */
   @media (max-width: 768px) {
     .slide-content { flex-direction: column; }
-    .slide-left { flex: 0 0 auto; padding: 2rem; }
+    .slide-left {
+      flex: 0 0 auto;
+      padding: 1.5rem;
+      max-height: 40vh;
+      overflow-y: auto;
+    }
     .slide-left::after { display: none; }
-    .slide-right { padding: 2rem; }
-    .slide-number { font-size: 4rem; }
+    .slide-right {
+      padding: 1.5rem 1rem;
+      flex: 1;
+      overflow-y: auto;
+      max-height: 60vh;
+    }
+    .slide-number { font-size: 3rem; }
+    .slide-year { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+    .slide-era { font-size: 0.7rem; }
+
+    .slide-title h1 { font-size: clamp(2rem, 6vw, 3.5rem); }
+    .slide-title .subtitle { font-size: clamp(0.85rem, 2vw, 1.2rem); }
+    .slide-title .dates { font-size: clamp(0.8rem, 1.5vw, 1rem); }
+    .slide-title .quote { font-size: clamp(0.8rem, 1.3vw, 0.95rem); }
+
+    .slide-right h2 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); }
+    .slide-right p { font-size: clamp(0.85rem, 1.1vw, 0.95rem); }
+    .slide-right ul li { font-size: clamp(0.85rem, 1.1vw, 0.95rem); }
+
+    .title-portrait { width: 120px; height: 120px; }
+
+    .map-frame iframe,
+    .video-link,
+    .slide-video,
+    .slide-audio iframe {
+      height: auto !important;
+      max-height: 300px;
+    }
+
+    .nav {
+      bottom: 1rem;
+      padding: 0.5rem 1rem;
+      gap: 0.5rem;
+    }
+
+    .nav button { font-size: 1rem; }
+    .dots { gap: 0.3rem; }
+    .dot { width: 6px; height: 6px; }
+    .slide-counter { font-size: 0.65rem; min-width: 2.5em; }
+
+    .kb-hint { font-size: 0.6rem; top: 1rem; right: 1rem; }
+    .kb-hint kbd { padding: 0.1em 0.3em; font-size: 0.6rem; }
+
+    .highlight { font-size: clamp(0.85rem, 1.1vw, 0.95rem); }
+  }
+
+  @media (max-width: 480px) {
+    .slide-left { padding: 1rem; max-height: 35vh; }
+    .slide-right { padding: 1rem; max-height: 65vh; }
+
+    .slide-number { font-size: 2rem; }
+    .slide-year { font-size: clamp(1.2rem, 3.5vw, 2rem); }
+    .slide-era { font-size: 0.65rem; }
+
+    .slide-title h1 { font-size: clamp(1.5rem, 5vw, 2.5rem); margin-bottom: 0.2em; }
+    .slide-title .subtitle { font-size: clamp(0.75rem, 1.8vw, 1rem); }
+    .slide-title .dates { font-size: clamp(0.7rem, 1.3vw, 0.9rem); margin-top: 0.5rem; }
+    .slide-title .quote { font-size: clamp(0.7rem, 1.1vw, 0.85rem); margin-top: 1.5rem; padding: 0 1rem; }
+
+    .slide-right h2 { font-size: clamp(1rem, 2.2vw, 1.5rem); margin-bottom: 1rem; }
+    .slide-right p { font-size: clamp(0.8rem, 1vw, 0.9rem); margin-bottom: 0.8rem; }
+
+    .title-portrait { width: 100px; height: 100px; margin-bottom: 1rem; }
+
+    .map-frame iframe,
+    .video-link,
+    .slide-video,
+    .slide-audio iframe {
+      max-height: 250px;
+    }
+
+    .nav { bottom: 0.8rem; padding: 0.4rem 0.8rem; }
+    .nav button { font-size: 0.9rem; padding: 0.2rem 0.4rem; }
+    .dot { width: 5px; height: 5px; }
+    .slide-counter { font-size: 0.6rem; }
+    .kb-hint { display: none; }
   }
 </style>
 </head>
